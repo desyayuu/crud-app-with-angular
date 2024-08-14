@@ -1,0 +1,36 @@
+/* Memastikan navbar mengisi seluruh lebar dan menggunakan flexbox */
+.navbar {
+    display: flex;
+    justify-content: center; /* Memusatkan navbar */
+  }
+  
+  /* Menjaga logo di kiri dan form pencarian di kanan pada layar besar */
+  .container-fluid {
+    display: flex;
+    justify-content: space-between; /* Memisahkan logo dan form pencarian */
+    align-items: center; /* Vertikal align */
+  }
+  
+  /* Mengatur ul untuk memusatkan item secara horizontal */
+  .navbar-nav {
+    display: flex;
+    justify-content: center; /* Memusatkan item navigasi */
+    width: 100%; /* Memastikan ul mengambil seluruh lebar container */
+  }
+  
+  /* Menjaga form pencarian di sebelah kanan */
+  form.d-flex {
+    margin-left: auto; /* Memindahkan form ke kanan */
+  }
+  
+  /* Responsif: Menyembunyikan form pencarian pada layar kecil dan menampilkan menu navigasi dengan benar */
+  @media (max-width: 992px) { /* Ubah sesuai dengan breakpoint Bootstrap yang digunakan */
+    .navbar-nav {
+      justify-content: center; /* Memusatkan item navigasi pada layar kecil */
+    }
+    .form-control {
+      width: 100%; /* Membuat form pencarian mengambil seluruh lebar pada layar kecil */
+      margin-top: 1rem; /* Menambahkan jarak atas */
+    }
+  }
+  

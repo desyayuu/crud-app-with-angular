@@ -1,31 +1,38 @@
-<div class="login-form">
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
-        <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" #emailInput="ngModel" required>
-            <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
-            Email is required.
-            </div>
+<div class="login-container">
+    <div class="column-1">
+        Gambar
+    </div>
+    <div class="column-2">
+        <div class="login-form">
+            <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" #emailInput="ngModel" required>
+                    <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+                    Email is required.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for=""password class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" #passInput="ngModel" required>
+                    <div *ngIf="passInput.invalid && passInput.touched" class="text-danger">
+                        Password is required.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role</label>
+                    <select class="form-select" aria-label="Default select example" name="role" [(ngModel)]="role" #roleInput="ngModel" required>
+                        <option selected>Select Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="customer">Customer</option>
+                    </select>
+                    <div *ngIf="roleInput.invalid && roleInput.touched" class="text-danger">
+                        Role is required.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+            <div *ngIf="message" class="text-danger">{{ message }}</div>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for=""password class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" #passInput="ngModel" required>
-            <div *ngIf="passInput.invalid && passInput.touched" class="text-danger">
-                Password is required.
-            </div>
-        </div>
-        <div class="mb-3">
-            <label for="role" class="form-label">Role</label>
-            <select class="form-select" aria-label="Default select example" name="role" [(ngModel)]="role" #roleInput="ngModel" required>
-                <option selected>Select Role</option>
-                <option value="admin">Admin</option>
-                <option value="customer">Customer</option>
-            </select>
-            <div *ngIf="roleInput.invalid && roleInput.touched" class="text-danger">
-                Role is required.
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
-      <div *ngIf="message" class="text-danger">{{ message }}</div>
-    </form>
+    </div>
 </div>

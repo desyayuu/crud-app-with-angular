@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
+import { AuthenticationService } from '../../core/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
-  standalone: true,
-  imports: [],
   templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.css'
+  styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent {
-  userRole= 'admin'; 
+  constructor(private authService: AuthenticationService, private router: Router) {}
 
-
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']); 
+  }
 }
