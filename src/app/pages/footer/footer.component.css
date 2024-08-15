@@ -7,7 +7,10 @@
     grid-template-columns: repeat(5, 1fr);
     width: 100%;
     font-size: 14px;
-}
+    bottom: 0;
+    left: 0;
+  }
+  
 
 .column1,
 .column-2,

@@ -2,7 +2,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     font-family: 'Inter', sans-serif;
     margin: 30px;
 }
@@ -38,7 +37,6 @@
     margin-bottom: 30px;
 }
 
-/* Media query untuk layar kecil */
 @media (max-width: 768px) {
     .login-container {
         flex-direction: column;
@@ -81,10 +79,9 @@ textarea:focus {
     box-shadow: 0 0 5px #CBE4E8; 
 }
 
-/* Opsional: Ubah warna border ketika input memiliki kesalahan */
 input.ng-invalid.ng-touched,
 select.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
-    border-color: #CBE4E8; /* Contoh untuk warna merah ketika ada kesalahan */
+    border-color: #CBE4E8;
 }
 
