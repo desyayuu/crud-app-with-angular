@@ -14,10 +14,6 @@ export const routes: Routes = [
         pathMatch: 'full'
     }, 
     {
-        path: 'login', 
-        component: LoginComponent, 
-    },
-    {
         path: 'access-denied', 
         component: AccessDeniedComponent
     }, 
@@ -25,6 +21,10 @@ export const routes: Routes = [
         path: '',
         component: LayoutComponent,
         children: [
+            {
+                path: 'login', 
+                component: LoginComponent, 
+            },
             {
                 path: 'admin-dashboard', 
                 component: AdminDashboardComponent, 

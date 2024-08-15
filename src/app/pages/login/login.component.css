@@ -1,25 +1,90 @@
-.login-form{
-    width: 500px;
-    padding: 50px;
-}
-
-.login-container{
+.login-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
-    border: 1px solid black;
-    margin: 60px; 
+
+    font-family: 'Inter', sans-serif;
+    margin: 30px;
 }
 
-.column-1, 
-.column-2{
-    flex: 1; 
+.column-1,
+.column-2 {
+    flex: 1;
     max-width: 100%;
 }
 
-.column-1 img{
+.column-1 img {
     width: 100%;
     height: auto;
+}
+
+.login-form {
+    width: 500px;
+    padding: 50px;
+    font-size: 14px;
+}
+
+.title-login {
+    letter-spacing: 4px;
+    font-weight: bolder;
+    margin-top: 20px;
+    font-size: 25px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.desc-title {
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 30px;
+}
+
+/* Media query untuk layar kecil */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 20px;
+    }
+
+    .login-form {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .column-1,
+    .column-2 {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .column-1 {
+        order: 1;
+        margin-bottom: 20px;
+    }
+
+    .column-2 {
+        order: 2;
+    }
+}
+
+.btn{
+    background-color: #DB4444;
+    color: white;
+    font-size: 14px;
+}
+
+input:focus, 
+select:focus, 
+textarea:focus {
+    outline: none; 
+    border-color: #CBE4E8; 
+    box-shadow: 0 0 5px #CBE4E8; 
+}
+
+/* Opsional: Ubah warna border ketika input memiliki kesalahan */
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+    border-color: #CBE4E8; /* Contoh untuk warna merah ketika ada kesalahan */
 }
 
