@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { User } from './models/user.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthenticationService {
   private loginUrl = 'users'; 
   private currentUser: User | null = null;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private router: Router) { }
 
   login(email: string, password: string, role: string): Observable<boolean> {
     return this.apiService.get<User[]>(this.loginUrl).pipe(
@@ -33,6 +34,7 @@ export class AuthenticationService {
 
   logout(): void {
     this.currentUser = null;
+    this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
