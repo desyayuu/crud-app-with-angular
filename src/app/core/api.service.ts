@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'// instance once for all
+  providedIn: 'root'
 })
 export class ApiService {
   private apiUrl = 'https://api.escuelajs.co/api/v1/';

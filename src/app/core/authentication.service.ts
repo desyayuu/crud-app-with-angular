@@ -4,18 +4,19 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { User } from './models/user.model';
 import { Router } from '@angular/router';
+import { Auth } from './models/auth.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   private loginUrl = 'users'; 
-  private currentUser: User | null = null;
+  private currentUser: Auth | null = null;
 
   constructor(private apiService: ApiService, private router: Router) { }
 
   login(email: string, password: string, role: string): Observable<boolean> {
-    return this.apiService.get<User[]>(this.loginUrl).pipe(
+    return this.apiService.get<Auth[]>(this.loginUrl).pipe(
       map(users => users.find(user => user.password === password && user.email === email && user.role === role) !== undefined),
       map(success => {
         if (success) {
