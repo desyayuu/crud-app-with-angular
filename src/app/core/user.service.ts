@@ -14,4 +14,9 @@ export class UserService {
   getUsers(): Observable<User[]> {
     return this.apiService.get<User[]>(this.endpoint); 
   }
+
+  updateUser(user: User): Observable<User> { 
+    const url = `${this.endpoint}/${user.id}`; 
+    return this.apiService.put<User>(url, user);
+  }
 }

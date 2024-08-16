@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Tambahkan ini untuk ngFor dan ngIf
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Tambahkan ini
 import { UserService } from '../../core/user.service';
 import { User } from '../../core/models/user.model';
 
@@ -8,10 +9,11 @@ import { User } from '../../core/models/user.model';
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
   standalone: true,
-  imports: [CommonModule] 
+  imports: [CommonModule, FormsModule] // Pastikan FormsModule diimpor di sini
 })
 export class AdminDashboardComponent {
   users: User[] = [];
+  selectedUser: User | null = null;
 
   constructor(private userService: UserService) {}
 
@@ -28,5 +30,23 @@ export class AdminDashboardComponent {
         console.error('Gagal mengambil data user', error);
       }
     );
+  }
+
+  selectUser(user: User): void {
+    this.selectedUser = user;
+  }
+
+  saveChanges(): void {
+    if (this.selectedUser) {
+      this.userService.updateUser(this.selectedUser).subscribe(
+        (response) => {
+          console.log('Pengguna berhasil diperbarui', response);
+          this.getUsers();
+        },
+        (error) => {
+          console.error('Gagal memperbarui pengguna', error);
+        }
+      );
+    }
   }
 }

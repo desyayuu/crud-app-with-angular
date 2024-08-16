@@ -14,16 +14,55 @@
       <tbody>
         <tr *ngFor="let user of users">
           <th scope="row">{{ user.id }}</th>
-          <td><img class="img-user" [src]="user.avatar" alt="user avatar"></td>
+          <td><img class="img-user" [src]="user.avatar" alt="avatar {{user.name}}"></td>
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.role }}</td>
           <td>
-            <button class="button-edit">Edit</button>
+            <button type="button" class="button-edit" (click)="selectUser(user)" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button>
             <button class="button-delete">Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
-</div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="editUserModalLabel">Edit User</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form *ngIf="selectedUser">
+                <div class="mb-3">
+                  <label for="userName" class="form-label">Nama</label>
+                  <input type="text" class="form-control" id="userName" [(ngModel)]="selectedUser.name" name="name">
+                </div>
+                <div class="mb-3">
+                    <label for="userAvatar" class="form-label">Avatar</label>
+                    <input type="text" class="form-control" id="userAvatar" [(ngModel)]="selectedUser.avatar" name="avatar">
+                  </div>
+                <div class="mb-3">
+                  <label for="userEmail" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="userEmail" [(ngModel)]="selectedUser.email" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="userPassword" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="userPassword" [(ngModel)]="selectedUser.password" name="password">
+                  </div>
+                <div class="mb-3">
+                  <label for="userRole" class="form-label">Role</label>
+                  <input type="text" class="form-control" id="userRole" [(ngModel)]="selectedUser.role" name="role">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="saveChanges()" data-bs-dismiss="modal">Save changes</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
