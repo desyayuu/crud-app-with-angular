@@ -17,10 +17,42 @@
             <td>{{ product.price}}</td>
             <td>{{ product.category.name}}</td>
             <td>
-                <button type="button" class="button-edit" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button>
+                <button type="button" class="button-edit" (click)="selectProduct(product)" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
                 <button class="button-delete">Delete</button>
             </td>
           </tr>
         </tbody>
       </table>
+
+        <!-- Modal -->
+        <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="editProductModalLabel">Edit User</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form *ngIf="selectedProduct">
+                    <div class="mb-3">
+                      <label for="title" class="form-label">Nama Produk</label>
+                      <input type="text" class="form-control" id="title" [(ngModel)]="selectedProduct.title" name="title">
+                    </div>
+                    <div class="mb-3">
+                      <label for="productPrice" class="form-label">Price</label>
+                      <input type="price" class="form-control" id="productPrice" [(ngModel)]="selectedProduct.price" name="price">
+                    </div>
+                    <div class="mb-3">
+                        <label for="productCategory" class="form-label">Catgeory</label>
+                        <input type="category" class="form-control" id="productCategory" [(ngModel)]="selectedProduct.category.name" name="category">
+                      </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" (click)="saveChanges()" data-bs-dismiss="modal">Save changes</button>
+                </div>
+              </div>
+            </div>
+        </div>
 </div>

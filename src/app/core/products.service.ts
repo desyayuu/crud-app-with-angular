@@ -13,4 +13,9 @@ export class ProductsService {
   getProducts(): Observable<Products[]>{
     return this.apiService.get<Products[]>(this.endpoint);
   }
+
+  updateProducts(product: Products): Observable<Products> { 
+    const url = `${this.endpoint}/${product.id}`; 
+    return this.apiService.put<Products>(url, product);
+  }
 }

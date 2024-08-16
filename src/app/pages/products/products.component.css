@@ -1,4 +1,4 @@
-.title-section{
+.container{
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
 }
@@ -7,4 +7,19 @@
     font-size: 20px;
     font-weight: bold;
     padding-bottom: 20px;
+}
+
+.button-delete{
+    background-color: #DB4444;
+    border: 1px solid #DB4444;
+    border-radius: 5px;
+    color: white;
+}
+
+.button-edit{
+    background-color: rgb(81, 240, 187);
+    border: 1px solid rgb(81, 240, 187);
+    border-radius: 5px;
+    color: white;
+    margin-right: 10px;
 }

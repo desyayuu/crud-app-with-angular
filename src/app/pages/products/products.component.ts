@@ -13,6 +13,7 @@ import { FormsModule} from '@angular/forms';
 })
 export class ProductsComponent {
   products: Products[] = []; 
+  selectedProduct: Products | null = null
 
   constructor(private productsService: ProductsService) {}
 
@@ -30,5 +31,23 @@ export class ProductsComponent {
         console.error('Gagal mengambil data user', error);
       }
     )
+  }
+
+  selectProduct(product: Products): void {
+    this.selectedProduct = product;
+  }
+
+  saveChanges(): void {
+    if (this.selectedProduct) {
+      this.productsService.updateProducts(this.selectedProduct).subscribe(
+        (response) => {
+          console.log('Pengguna berhasil diperbarui', response);
+          this.getProducts();
+        },
+        (error) => {
+          console.error('Gagal memperbarui pengguna', error);
+        }
+      );
+    }
   }
 }
