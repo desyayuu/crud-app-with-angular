@@ -53,15 +53,8 @@ export class AdminDashboardComponent {
 
   deleteUser(id: number): void {
     if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(id).subscribe(
-        () => {
-          this.users = this.users.filter(user => user.id !== id);
-          console.log(`User with ID ${id} deleted from UI and backend`);
-        },
-        (error) => {
-          console.error('Gagal menghapus user', error);
-        }
-      );
+      this.users = this.users.filter(user => user.id !== id);
+      console.log(`User with ID ${id} deleted from UI`);
     }
   }
 

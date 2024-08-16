@@ -18,4 +18,9 @@ export class ProductsService {
     const url = `${this.endpoint}/${product.id}`; 
     return this.apiService.put<Products>(url, product);
   }
+
+  deleteProducts(id: number): Observable<Products>{
+    const url = `${this.endpoint}/${id}`; 
+    return this.apiService.delete<Products>(this.endpoint);
+  }
 }

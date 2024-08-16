@@ -50,4 +50,11 @@ export class ProductsComponent {
       );
     }
   }
+
+  deleteProduct(id: number): void {
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.products = this.products.filter(product => product.id !== id);
+      console.log(`Product with ID ${id} deleted from UI`);
+    }
+  }
 }

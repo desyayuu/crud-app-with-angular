@@ -18,7 +18,7 @@
             <td>{{ product.category.name}}</td>
             <td>
                 <button type="button" class="button-edit" (click)="selectProduct(product)" data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
-                <button class="button-delete">Delete</button>
+                <button class="button-delete" (click)="deleteProduct(product.id)">Delete</button>
             </td>
           </tr>
         </tbody>
