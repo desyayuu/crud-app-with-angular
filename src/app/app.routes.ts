@@ -6,6 +6,7 @@ import { CustomerDashboardComponent } from './pages/customer-dashboard/customer-
 import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
 import { AdminGuard } from './core/guards/admin/admin.guard';
 import { CustomerGuard } from './core/guards/customer/customer.guard';
+import { ProductsComponent } from './pages/products/products.component';
 
 export const routes: Routes = [
     {
@@ -34,6 +35,10 @@ export const routes: Routes = [
                     path: 'dashboard-admin',
                     component: AdminDashboardComponent
                   },
+                  {
+                    path: 'products', 
+                    component: ProductsComponent
+                  }
                 ]
             },
             {
