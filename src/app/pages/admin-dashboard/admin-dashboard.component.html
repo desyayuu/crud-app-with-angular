@@ -20,7 +20,7 @@
           <td>{{ user.role }}</td>
           <td>
             <button type="button" class="button-edit" (click)="selectUser(user)" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button>
-            <button class="button-delete">Delete</button>
+            <button class="button-delete" (click)="deleteUser(user.id)">Delete</button>
           </td>
         </tr>
       </tbody>
