@@ -25,6 +25,10 @@ export class ApiService {
     return this.http.delete<T>(`${this.apiUrl}${endpoint}`)
   }
 
+  post<T>(endpoint: string, body: any): Observable<T>{
+    return this.http.post<T>(`${this.apiUrl}${endpoint}`, body);
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);

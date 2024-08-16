@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Tambahkan ini
+import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../../core/user.service';
 import { User } from '../../core/models/user.model';
 
@@ -9,11 +9,12 @@ import { User } from '../../core/models/user.model';
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule] // Pastikan FormsModule diimpor di sini
+  imports: [CommonModule, FormsModule]
 })
 export class AdminDashboardComponent {
   users: User[] = [];
   selectedUser: User | null = null;
+  newUser: User = { id: 0, name: '', email: '', role: '', avatar: '', password: '' }; // Pastikan password ada
 
   constructor(private userService: UserService) {}
 
@@ -49,23 +50,42 @@ export class AdminDashboardComponent {
       );
     }
   }
-  // deleteUser(id: number): void {
-  //   if (confirm('Are you sure you want to delete this user?')) {
-  //     this.userService.deleteUser(id).subscribe(
-  //       () => {
-  //         this.users = this.users.filter(user => user.id !== id);
-  //       },
-  //       (error) => {
-  //         console.error('Gagal menghapus user', error);
-  //       }
-  //     );
-  //   }
-  // }
 
   deleteUser(id: number): void {
     if (confirm('Are you sure you want to delete this user?')) {
-      this.users = this.users.filter(user => user.id !== id);
-      console.log(`User with ID ${id} deleted from UI`);
+      this.userService.deleteUser(id).subscribe(
+        () => {
+          this.users = this.users.filter(user => user.id !== id);
+          console.log(`User with ID ${id} deleted from UI and backend`);
+        },
+        (error) => {
+          console.error('Gagal menghapus user', error);
+        }
+      );
     }
+  }
+
+  createUser(user: User): void {
+    this.userService.createUser(user).subscribe(
+      (newUser: User) => {
+        this.users.push(newUser);
+        this.resetForm(); // Reset form setelah berhasil
+      },
+      (error) => {
+        console.error('Gagal menambahkan user', error);
+      }
+    );
+  }
+
+  onSubmit(form: NgForm): void {
+    if (this.selectedUser) {
+      this.saveChanges(); // Memperbarui pengguna yang sudah ada
+    } else {
+      this.createUser(this.newUser); // Membuat pengguna baru
+    }
+  }
+
+  resetForm(): void {
+    this.newUser = { id: 0, name: '', email: '', role: '', avatar: '', password: '' }; // Pastikan password ada
   }
 }

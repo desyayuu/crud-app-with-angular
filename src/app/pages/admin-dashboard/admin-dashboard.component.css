@@ -8,6 +8,7 @@
     font-weight: bold;
     padding-bottom: 20px;
 }
+
 .img-user{
     width: 25%;
     height: auto;
@@ -26,6 +27,14 @@
 .button-delete{
     background-color: #DB4444;
     border: 1px solid #DB4444;
+    border-radius: 5px;
+    color: white;
+    padding: 8px 12px 8px 12px;
+}
+
+.button-create{
+    background-color: #00FF66;
+    border: 1px solid #00FF66;
     border-radius: 5px;
     color: white;
     padding: 8px 12px 8px 12px;

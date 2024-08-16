@@ -24,4 +24,11 @@ export class UserService {
     const url = `${this.endpoint}/${id}`; 
     return this.apiService.delete<User>(this.endpoint);
   }
+
+  createUser(user: User): Observable<User>{
+    const url = `${this.endpoint}`; 
+    return this.apiService.post<User>(url, user); 
+  }
+
+  
 }
