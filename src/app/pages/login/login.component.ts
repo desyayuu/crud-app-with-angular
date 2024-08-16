@@ -23,9 +23,9 @@ export class LoginComponent {
     this.authService.login(this.email, this.password, this.role).subscribe(success => {
       if (success) {
         if(this.role === 'admin'){
-          this.router.navigate(['/admin-dashboard']); 
+          this.router.navigate(['/admin/dashboard-admin']); 
         }else if(this.role == 'customer'){
-          this.router.navigate(['/customer-dashboard']); 
+          this.router.navigate(['/customer/dashboard-customer']); 
         }
       } else {
         this.message = 'Invalid email, username, or role';

@@ -22,14 +22,39 @@ export const routes: Routes = [
         component: LayoutComponent,
         children: [
             {
+                path: 'admin',
+                canActivate: [AdminGuard],
+                children: [
+                  {
+                    path: '',
+                    redirectTo: 'dashboard-admin',
+                    pathMatch: 'full'
+                  },
+                  {
+                    path: 'dashboard-admin',
+                    component: AdminDashboardComponent
+                  },
+                ]
+            },
+            {
+                path: 'customer', 
+                canActivate: [CustomerGuard], 
+                children: [
+                    {
+                        path: '', 
+                        redirectTo: 'dashboard-customer', 
+                        pathMatch: 'full',
+                    },
+                    {
+                        path: 'dashboard-customer', 
+                        component: CustomerDashboardComponent
+                    }
+                ]
+            },
+            {
                 path: 'login', 
                 component: LoginComponent, 
             },
-            {
-                path: 'admin-dashboard', 
-                component: AdminDashboardComponent, 
-                canActivate: [AdminGuard]
-            }, 
             {
                 path: 'customer-dashboard', 
                 component: CustomerDashboardComponent, 
