@@ -8,25 +8,25 @@ import { ProductsService } from '../../../core/products.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './clothes.component.html',
-  styleUrl: './clothes.component.css'
+  styleUrls: ['./clothes.component.css'] 
 })
 export class ClothesComponent {
-  products: Products[] = []; 
-  category: string = "Clothes"
+  products: Products[] = [];
+  category: string = "Clothes";
+  loading: boolean = true; 
 
-  constructor (private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService) {}
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.productsService.getProductsByCategory(this.category).subscribe(
-      (products) =>{
+      (products) => {
         this.products = products;
-        console.log(products)
-      }, 
+        this.loading = false;  
+      },
       (error) => {
         console.error();
+        this.loading = false;  
       }
-    )
+    );
   }
-  
-  
 }

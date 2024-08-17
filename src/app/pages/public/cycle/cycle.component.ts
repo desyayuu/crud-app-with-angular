@@ -12,7 +12,8 @@ import { ProductsService } from '../../../core/products.service';
 })
 export class CycleComponent {
   products: Products[] = []; 
-  category: string = "Miscellaneous"
+  category: string = "Miscellaneous"; 
+  loading: boolean = true;
 
   constructor (private productsService: ProductsService) {}
 
@@ -20,10 +21,11 @@ export class CycleComponent {
     this.productsService.getProductsByCategory(this.category).subscribe(
       (products) =>{
         this.products = products;
-        console.log(products)
+        this.loading=false;
       }, 
       (error) => {
         console.error();
+        this.loading=false;
       }
     )
   }

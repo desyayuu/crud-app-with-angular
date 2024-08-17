@@ -12,7 +12,8 @@ import { ProductsService } from '../../../core/products.service';
 })
 export class ElectronicsComponent {
   products: Products[] = []; 
-  category: string = "Electronics"
+  category: string = "Electronics"; 
+  loading: boolean = true;
 
   constructor (private productsService: ProductsService) {}
 
@@ -20,7 +21,7 @@ export class ElectronicsComponent {
     this.productsService.getProductsByCategory(this.category).subscribe(
       (products) =>{
         this.products = products;
-        console.log(products)
+        this.loading = false;
       }, 
       (error) => {
         console.error();

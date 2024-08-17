@@ -2,13 +2,21 @@
     <div class="title-section">
       Cloth
     </div>
-    <div class="card-container">
+
+    <div *ngIf="loading" class="loading-message">
+      Loading products...
+    </div>
+  
+    <div *ngIf="!loading" class="card-container">
       <div class="card-section" *ngFor="let product of products">
         <div class="image-container">
-          <img [src]="product.images[0]" alt="{{ product.title }}" />
+          <img *ngIf="product.images && product.images.length > 0" [src]="product.images[0]" alt="{{ product.title }}" />
+          <div *ngIf="!product.images || product.images.length === 0">No image available</div>
         </div>
-        <div class="product-name">{{ product.title }}</div>
-        <div class="product-price">$ {{ product.price }}</div>
+        <div class="product-details">
+          <div class="product-name">{{ product.title }}</div>
+          <div class="product-price">Rp {{ product.price }}</div>
+        </div>
       </div>
     </div>
   </div>

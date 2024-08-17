@@ -2,6 +2,9 @@
     <div class="title-section">
         Electronics
     </div>
+    <div *ngIf="loading" class="loading-message">
+        Loading products...
+    </div>
     <div class="card-container">
         <div class="card-section" *ngFor="let product of products">
           <div class="image-container">
