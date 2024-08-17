@@ -25,7 +25,7 @@ export class LoginComponent {
         if(this.role === 'admin'){
           this.router.navigate(['/admin/dashboard-admin']); 
         }else if(this.role == 'customer'){
-          this.router.navigate(['/customer/dashboard-customer']); 
+          this.router.navigate(['/customer/cloth']); 
         }
       } else {
         this.message = 'Invalid email, username, or role';

@@ -1,0 +1,11 @@
+.container{
+    font-family: 'Poppins', sans-serif;
+}
+
+.title-section{
+    background-color: white;
+    border-left: 5px solid #DB4444;
+    font-weight: 600;
+    font-size: 20px;
+    padding-left: 10px;
+}

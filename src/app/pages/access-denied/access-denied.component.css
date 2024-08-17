@@ -1,0 +1,12 @@
+.container{
+    padding: 50px; 
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.desc{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 200px;
+}

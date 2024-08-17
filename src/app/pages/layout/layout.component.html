@@ -3,7 +3,13 @@
 <div class="main-container">
   <div class="content-area">
     <ng-container *ngIf="!isLoginPage">
-      <app-sidebar></app-sidebar>
+      <!-- Tampilkan sidebar yang berbeda berdasarkan kondisi -->
+      <ng-container *ngIf="isAdminPage; else customerSidebar">
+        <app-sidebar></app-sidebar>
+      </ng-container>
+      <ng-template #customerSidebar>
+        <app-sidebar-customer></app-sidebar-customer>
+      </ng-template>
     </ng-container>
     <div class="content">
       <router-outlet></router-outlet>
