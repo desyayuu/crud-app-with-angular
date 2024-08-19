@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { User } from './models/user.model';
+import { User } from '../models/user.model';
 import { Router } from '@angular/router';
-import { Auth } from './models/auth.model';
+import { Auth } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root'

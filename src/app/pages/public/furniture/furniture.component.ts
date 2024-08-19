@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Products } from '../../../core/models/products.model';
-import { ProductsService } from '../../../core/products.service';
+import { ProductsService } from '../../../core/services/products.service';
 
 @Component({
   selector: 'app-furniture',
