@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../shared/navbar/navbar.component';
-import { SidebarComponent } from '../shared/sidebar/sidebar.component';
-import { FooterComponent } from '../shared/footer/footer.component';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { FooterComponent } from '../footer/footer.component';
 import { RouterOutlet } from '@angular/router';
-import { SidebarCustomerComponent } from '../shared/sidebar-customer/sidebar-customer.component';
+import { SidebarCustomerComponent } from '../sidebar-customer/sidebar-customer.component';
 
 @Component({
   selector: 'app-layout',
@@ -26,14 +26,13 @@ export class LayoutComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         this.isLoginPage = this.router.url === '/login';
 
-        // Tentukan apakah halaman admin atau customer berdasarkan URL
         this.isAdminPage = this.router.url.startsWith('/admin');
         this.isCustomerPage = this.router.url.startsWith('/customer');
         
         console.log('Current URL:', this.router.url); 
-        console.log('Is login page:', this.isLoginPage); // Debug flag
-        console.log('Is admin page:', this.isAdminPage); // Debug admin flag
-        console.log('Is customer page:', this.isCustomerPage); // Debug customer flag
+        console.log('Is login page:', this.isLoginPage);
+        console.log('Is admin page:', this.isAdminPage); 
+        console.log('Is customer page:', this.isCustomerPage);
       }
     });
   }

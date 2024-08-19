@@ -23,3 +23,10 @@
     color: white;
     margin-right: 10px;
 }
+
+.loading{
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+}

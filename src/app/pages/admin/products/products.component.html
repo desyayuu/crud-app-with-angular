@@ -1,6 +1,9 @@
 <div class="container">
     <div class="title-section">Data Product</div>
-    <table class="table">
+    <div *ngIf="isLoading" class="loading">
+      Loading...
+    </div>
+    <table *ngIf="!isLoading" class="table">
         <thead>
           <tr>
             <th scope="col">Id</th>

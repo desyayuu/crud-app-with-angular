@@ -1,7 +1,12 @@
 <div class="container">
     <div class="title-section">Data User</div>
     <button class="button-create" data-bs-toggle="modal" data-bs-target="#addUserModal">Add User</button>
-    <table class="table">
+
+    <div *ngIf="isLoading" class="loading">
+      Loading...
+    </div>
+    
+    <table  *ngIf="!isLoading" class="table">
       <thead>
         <tr>
           <th scope="col">Id</th>
@@ -76,10 +81,14 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form (ngSubmit)="createUser(newUser)">
+              <form (ngSubmit)="onSubmit(form)" #form="ngForm">
                 <div class="mb-3">
                   <label for="newUserName" class="form-label">Name</label>
                   <input type="text" id="newUserName" [(ngModel)]="newUser.name" name="name" required class="form-control">
+                </div>
+                <div class="mb-3">
+                  <label for="newUserAvatar" class="form-label">Avatar</label>
+                  <input type="text" id="newUserAvatar" [(ngModel)]="newUser.avatar" name="avatar" required class="form-control">
                 </div>
                 <div class="mb-3">
                   <label for="newUserEmail" class="form-label">Email</label>

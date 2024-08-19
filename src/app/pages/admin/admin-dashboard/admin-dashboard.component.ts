@@ -14,18 +14,21 @@ import { User } from '../../../core/models/user.model';
 export class AdminDashboardComponent {
   users: User[] = [];
   selectedUser: User | null = null;
-  newUser: User = { id: 0, name: '', email: '', role: '', avatar: '', password: '' }; // Pastikan password ada
+  newUser: User = { id: 0, name: '', email: '', role: '', avatar: '', password: '' };
+  isLoading: boolean = true;
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.getUsers();
+    
   }
 
   getUsers(): void {
     this.userService.getUsers().subscribe(
       (data: User[]) => {
         this.users = data;
+        this.isLoading = false; 
       },
       (error) => {
         console.error('Gagal mengambil data user', error);
@@ -62,7 +65,10 @@ export class AdminDashboardComponent {
     this.userService.createUser(user).subscribe(
       (newUser: User) => {
         this.users.push(newUser);
-        this.resetForm(); // Reset form setelah berhasil
+        console.log('Bisa Masuk', newUser);
+        this.resetForm();
+        this.getUsers();
+        console.log();
       },
       (error) => {
         console.error('Gagal menambahkan user', error);
@@ -72,13 +78,13 @@ export class AdminDashboardComponent {
 
   onSubmit(form: NgForm): void {
     if (this.selectedUser) {
-      this.saveChanges(); // Memperbarui pengguna yang sudah ada
+      this.saveChanges();
     } else {
-      this.createUser(this.newUser); // Membuat pengguna baru
+      this.createUser(this.newUser);
     }
   }
 
   resetForm(): void {
-    this.newUser = { id: 0, name: '', email: '', role: '', avatar: '', password: '' }; // Pastikan password ada
+    this.newUser = { id: 0, name: '', email: '', role: '', avatar: '', password: '' };
   }
 }

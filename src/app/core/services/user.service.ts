@@ -29,6 +29,4 @@ export class UserService {
     const url = `${this.endpoint}`; 
     return this.apiService.post<User>(url, user); 
   }
-
-  
 }

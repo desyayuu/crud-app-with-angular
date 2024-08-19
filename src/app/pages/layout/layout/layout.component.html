@@ -3,7 +3,6 @@
 <div class="main-container">
   <div class="content-area">
     <ng-container *ngIf="!isLoginPage">
-      <!-- Tampilkan sidebar yang berbeda berdasarkan kondisi -->
       <ng-container *ngIf="isAdminPage; else customerSidebar">
         <app-sidebar></app-sidebar>
       </ng-container>

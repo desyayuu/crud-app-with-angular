@@ -13,7 +13,8 @@ import { FormsModule} from '@angular/forms';
 })
 export class ProductsComponent {
   products: Products[] = []; 
-  selectedProduct: Products | null = null
+  selectedProduct: Products | null = null;
+  isLoading: boolean = true; 
 
   constructor(private productsService: ProductsService) {}
 
@@ -25,6 +26,7 @@ export class ProductsComponent {
     this.productsService.getProducts().subscribe(
       (data: Products[]) => {
         this.products = data;
+        this.isLoading = false;
         console.log('Berhasil get data', data);
       },
       (error) => {

@@ -37,3 +37,10 @@
     color: white;
     padding: 8px 12px 8px 12px;
 }
+
+.loading{
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+}
