@@ -5,13 +5,13 @@ import { UserService } from '../../../core/services/user.service';
 import { User } from '../../../core/models/user.model';
 
 @Component({
-  selector: 'app-admin-dashboard',
-  templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./admin-dashboard.component.css'],
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css'],
   standalone: true,
   imports: [CommonModule, FormsModule]
 })
-export class AdminDashboardComponent {
+export class UserComponent {
   users: User[] = [];
   selectedUser: User | null = null;
   newUser: User = { id: 0, name: '', email: '', role: '', avatar: '', password: '' };

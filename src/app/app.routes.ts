@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { LayoutComponent } from './pages/layout/layout/layout.component';
-import { AdminDashboardComponent } from './pages/admin/admin-dashboard/admin-dashboard.component';
+import { UserComponent } from './pages/admin/user/user.component';
 import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
 import { AdminGuard } from './core/guards/admin/admin.guard';
 import { CustomerGuard } from './core/guards/customer/customer.guard';
@@ -11,6 +11,7 @@ import { FurnitureComponent } from './pages/public/furniture/furniture.component
 import { ShoesComponent } from './pages/public/shoes/shoes.component';
 import { CycleComponent } from './pages/public/cycle/cycle.component';
 import { ElectronicsComponent } from './pages/public/electronics/electronics.component';
+import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {
@@ -37,7 +38,11 @@ export const routes: Routes = [
                   },
                   {
                     path: 'dashboard-admin',
-                    component: AdminDashboardComponent
+                    component: DashboardComponent,
+                  },
+                  {
+                    path: 'users', 
+                    component: UserComponent,
                   },
                   {
                     path: 'products', 
