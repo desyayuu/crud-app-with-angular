@@ -64,17 +64,16 @@ export class UserComponent {
   createUser(user: User): void {
     this.userService.createUser(user).subscribe(
       (newUser: User) => {
-        this.users.push(newUser);
-        console.log('Bisa Masuk', newUser);
+        console.log('Pengguna berhasil ditambahkan', newUser);
         this.resetForm();
         this.getUsers();
-        console.log();
       },
       (error) => {
-        console.error('Gagal menambahkan user', error);
+        console.error('Gagal menambahkan pengguna', error);
       }
     );
   }
+  
 
   onSubmit(form: NgForm): void {
     if (this.selectedUser) {

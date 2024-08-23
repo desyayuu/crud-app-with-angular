@@ -81,7 +81,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form (ngSubmit)="onSubmit(form)" #form="ngForm">
+              <form #form="ngForm">
                 <div class="mb-3">
                   <label for="newUserName" class="form-label">Name</label>
                   <input type="text" id="newUserName" [(ngModel)]="newUser.name" name="name" required class="form-control">
@@ -102,11 +102,11 @@
                   <label for="newUserPassword" class="form-label">Password</label>
                   <input type="password" id="newUserPassword" [(ngModel)]="newUser.password" name="password" required class="form-control">
                 </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary" (click)="onSubmit(form)" data-bs-dismiss="modal">Save</button>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>

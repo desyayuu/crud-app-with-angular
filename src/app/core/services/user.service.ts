@@ -26,7 +26,6 @@ export class UserService {
   }
 
   createUser(user: User): Observable<User>{
-    const url = `${this.endpoint}`; 
-    return this.apiService.post<User>(url, user); 
+    return this.apiService.post<User>(this.endpoint, user);
   }
 }
