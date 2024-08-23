@@ -3,6 +3,8 @@ import { ProductsService } from '../../../core/services/products.service';
 import { Products } from '../../../core/models/products.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
+import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-products',
@@ -59,4 +61,21 @@ export class ProductsComponent {
       console.log(`Product with ID ${id} deleted from UI`);
     }
   }
+
+  exportToExcel() {
+    const productInExcel = this.products.map(product => ({
+      ID: product.id, 
+      NamaProduk: product.title, 
+      KategoriProduk: product.category.name,
+      Harga: '$' + product.price, 
+    }))
+
+    const ws = XLSX.utils.json_to_sheet(productInExcel); 
+    const wb = XLSX.utils.book_new(); 
+
+    XLSX.utils.book_append_sheet(wb, ws); 
+    XLSX.writeFile(wb, 'Data Produk.xlsx')
+  }
+
 }
+

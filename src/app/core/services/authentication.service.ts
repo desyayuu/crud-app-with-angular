@@ -25,7 +25,6 @@ export class AuthenticationService {
       tap(response => {
         if (response.access_token) {
           localStorage.setItem('token', response.access_token); 
-          console.log(response.access_token);
           this.getProfile().subscribe(profile => {
             if (profile) {
               this.currentUser = { email: profile.email, role: profile.role };

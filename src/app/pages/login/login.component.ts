@@ -28,7 +28,7 @@ export class LoginComponent {
               if(this.role === 'admin'){
                 this.router.navigate(['/admin/'])
               }else if (this.role === 'customer') {
-                this.router.navigate(['/customer/cloth']); 
+                this.router.navigate(['/customer/']); 
               }
             }else{
               this.router.navigate(['login']);
