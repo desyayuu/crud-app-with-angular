@@ -43,13 +43,13 @@
             <div class="modal-body">
               <form *ngIf="selectedUser">
                 <div class="mb-3">
+                  <label for="userAvatar" class="form-label">Avatar</label>
+                  <input type="avatar" class="form-control" id="userAvatar" [(ngModel)]="selectedUser.avatar" name="avatar">
+                </div>
+                <div class="mb-3">
                   <label for="userName" class="form-label">Nama</label>
                   <input type="text" class="form-control" id="userName" [(ngModel)]="selectedUser.name" name="name">
                 </div>
-                <div class="mb-3">
-                    <label for="userAvatar" class="form-label">Avatar</label>
-                    <input type="text" class="form-control" id="userAvatar" [(ngModel)]="selectedUser.avatar" name="avatar">
-                  </div>
                 <div class="mb-3">
                   <label for="userEmail" class="form-label">Email</label>
                   <input type="email" class="form-control" id="userEmail" [(ngModel)]="selectedUser.email" name="email">
