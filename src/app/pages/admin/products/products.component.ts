@@ -4,6 +4,7 @@ import { Products } from '../../../core/models/products.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule} from '@angular/forms';
 import * as XLSX from 'xlsx';
+import { Category } from '../../../core/models/category.model';
 
 
 @Component({
@@ -15,6 +16,7 @@ import * as XLSX from 'xlsx';
 })
 export class ProductsComponent {
   products: Products[] = []; 
+  categories: Category[] = [];
   selectedProduct: Products | null = null;
   isLoading: boolean = true; 
 
@@ -22,6 +24,7 @@ export class ProductsComponent {
 
   ngOnInit(){
     this.getProducts();
+    this.getCategories();
   }
 
   getProducts(): void {
@@ -60,6 +63,18 @@ export class ProductsComponent {
       this.products = this.products.filter(product => product.id !== id);
       console.log(`Product with ID ${id} deleted from UI`);
     }
+  }
+
+  getCategories(): void {
+    this.productsService.getCategories().subscribe(
+      (data: Category[]) => {
+        this.categories = data;
+        console.log('Berhasil mendapatkan kategori', data);
+      },
+      (error) => {
+        console.error('Gagal mengambil kategori', error);
+      }
+    );
   }
 
   exportToExcel() {

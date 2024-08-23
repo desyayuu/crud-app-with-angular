@@ -1,5 +1,6 @@
 <div class="container">
     <div class="title-section">Data Product</div>
+    <button class="button-create" data-bs-toggle="modal" data-bs-target="#addProductModal">Add User</button>
     <button class="button-download" (click)="exportToExcel()">Export to Excel</button>
     <div *ngIf="isLoading" class="loading">
       Loading...
@@ -59,4 +60,40 @@
               </div>
             </div>
         </div>
+
+        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addProductModalLabel">Add Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form #form="ngForm">
+                  <div class="mb-3">
+                    <label for="" class="form-label">Title</label>
+                    <input type="text" id="newProductName"  name="name" required class="form-control">
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Price</label>
+                    <input type="number" id="newProductPrice"  name="price" required class="form-control">
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Description</label>
+                    <input type="text" id="newProductDescription"  name="description" required class="form-control">
+                  </div>
+                  <div class="mb-3">
+                    <label for="newProductCategory" class="form-label">Category</label>
+                    <select id="newProductCategory" name="category" required class="form-control" >
+                      <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+      </div>
 </div>

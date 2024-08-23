@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { Products } from '../models/products.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs';
+import { Category } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +31,10 @@ export class ProductsService {
       map(products => products.filter(product => product.category.name.toLowerCase() === category.toLowerCase()))
     );
   }
+
+  getCategories(): Observable<Category[]> {
+    const url = 'categories'
+    return this.apiService.get<Category[]>(url);
+  }
+  
 }
