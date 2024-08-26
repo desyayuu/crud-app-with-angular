@@ -74,9 +74,17 @@ export class ProductsComponent {
   }
 
   deleteProduct(id: number): void {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.products = this.products.filter(product => product.id !== id);
-      console.log(`Product with ID ${id} deleted from UI`);
+    if (confirm('Are you sure you want to delete this product?')) {
+      this.productsService.deleteProduct(id).subscribe({
+        next: () => {
+          this.products = this.products.filter(product => product.id !== id);
+          this.toast.success('Product deleted successfully!');
+        },
+        error: (err) => {
+          console.error('Error deleting product:', err);
+          this.toast.error('Failed to delete product.');
+        }
+      });
     }
   }
 

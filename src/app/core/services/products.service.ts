@@ -21,9 +21,9 @@ export class ProductsService {
     return this.apiService.put<Products>(url, product);
   }
 
-  deleteProducts(id: number): Observable<Products>{
+  deleteProduct(id: number): Observable<void> {
     const url = `${this.endpoint}/${id}`; 
-    return this.apiService.delete<Products>(url);
+    return this.apiService.delete<void>(url);
   }
 
   getProductsByCategory(category: string): Observable<Products[]> {
