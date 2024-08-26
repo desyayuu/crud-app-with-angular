@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { User } from '../../../core/models/user.model';
+import { Toast, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user',
@@ -17,7 +18,7 @@ export class UserComponent {
   newUser: User = { id: 0, name: '', email: '', role: '', avatar: '', password: '' };
   isLoading: boolean = true;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.getUsers();
@@ -67,9 +68,10 @@ export class UserComponent {
         console.log('Pengguna berhasil ditambahkan', newUser);
         this.resetForm();
         this.getUsers();
+        this.toastr.success('Pengguna Berhasil ditambahkan');
       },
       (error) => {
-        console.error('Gagal menambahkan pengguna', error);
+        this.toastr.error('Gagal menambahkan pengguna', error);
       }
     );
   }
