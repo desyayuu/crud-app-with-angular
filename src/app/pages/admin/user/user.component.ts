@@ -32,7 +32,7 @@ export class UserComponent {
         this.isLoading = false; 
       },
       (error) => {
-        console.error('Gagal mengambil data user', error);
+        this.toastr.error('Gagal mengambil data user', error);
       }
     );
   }
@@ -47,9 +47,10 @@ export class UserComponent {
         (response) => {
           console.log('Pengguna berhasil diperbarui', response);
           this.getUsers();
+          this.toastr.success('Pengguna berhasil diperbarui')
         },
         (error) => {
-          console.error('Gagal memperbarui pengguna', error);
+          this.toastr.error('Gagal memperbarui pengguna', error);
         }
       );
     }
