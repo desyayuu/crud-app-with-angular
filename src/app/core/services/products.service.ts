@@ -23,7 +23,7 @@ export class ProductsService {
 
   deleteProducts(id: number): Observable<Products>{
     const url = `${this.endpoint}/${id}`; 
-    return this.apiService.delete<Products>(this.endpoint);
+    return this.apiService.delete<Products>(url);
   }
 
   getProductsByCategory(category: string): Observable<Products[]> {
@@ -33,8 +33,35 @@ export class ProductsService {
   }
 
   getCategories(): Observable<Category[]> {
-    const url = 'categories'
+    const url = 'categories';
     return this.apiService.get<Category[]>(url);
   }
+  
+  createProduct(product: any): Observable<Products> {
+    let imagesArray: string[] = [];
+    if (typeof product.images === 'string') {
+      try {
+        imagesArray = JSON.parse(product.images);
+        if (!Array.isArray(imagesArray)) {
+          imagesArray = product.images.split(',').map((image: string) => image.trim());
+        }
+      } catch (error) {
+        imagesArray = product.images.split(',').map((image: string) => image.trim());
+      }
+    } else if (Array.isArray(product.images)) {
+      imagesArray = product.images;
+    }
+  
+    const productForApi = {
+      title: product.title,
+      price: product.price,
+      description: product.description,
+      images: imagesArray,
+      categoryId: product.category ? product.category.id : null
+    };
+  
+    return this.apiService.post<Products>(this.endpoint, productForApi);
+  }
+  
   
 }

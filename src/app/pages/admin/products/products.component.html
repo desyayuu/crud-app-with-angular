@@ -1,6 +1,6 @@
 <div class="container">
     <div class="title-section">Data Product</div>
-    <button class="button-create" data-bs-toggle="modal" data-bs-target="#addProductModal">Add User</button>
+    <button class="button-create" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
     <button class="button-download" (click)="exportToExcel()">Export to Excel</button>
     <div *ngIf="isLoading" class="loading">
       Loading...
@@ -40,6 +40,11 @@
                 <div class="modal-body">
                   <form *ngIf="selectedProduct">
                     <div class="mb-3">
+                      <img class="img-product" [src]="selectedProduct.images[0]" alt="">
+                      <img class="img-product"[src]="selectedProduct.images[1]" alt="">
+                      <img class="img-product" [src]="selectedProduct.images[2]" alt="">
+                    </div>
+                    <div class="mb-3">
                       <label for="title" class="form-label">Nama Produk</label>
                       <input type="text" class="form-control" id="title" [(ngModel)]="selectedProduct.title" name="title">
                     </div>
@@ -69,31 +74,35 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form #form="ngForm">
+                <form #form="ngForm" (ngSubmit)="createProduct(form)">
                   <div class="mb-3">
-                    <label for="" class="form-label">Title</label>
-                    <input type="text" id="newProductName"  name="name" required class="form-control">
+                    <label for="newProductImage" class="form-label">Images</label>
+                    <input type="text" id="newProductImage" name="images" [(ngModel)]="newProduct.images" required class="form-control">
                   </div>
                   <div class="mb-3">
-                    <label for="" class="form-label">Price</label>
-                    <input type="number" id="newProductPrice"  name="price" required class="form-control">
+                    <label for="newProductTitle" class="form-label">Title</label>
+                    <input type="text" id="newProductTitle" name="title" [(ngModel)]="newProduct.title" required class="form-control">
                   </div>
                   <div class="mb-3">
-                    <label for="" class="form-label">Description</label>
-                    <input type="text" id="newProductDescription"  name="description" required class="form-control">
+                    <label for="newProductPrice" class="form-label">Price</label>
+                    <input type="number" id="newProductPrice" name="price" [(ngModel)]="newProduct.price" required class="form-control">
+                  </div>
+                  <div class="mb-3">
+                    <label for="newProductDescription" class="form-label">Description</label>
+                    <input type="text" id="newProductDescription" name="description" [(ngModel)]="newProduct.description" required class="form-control">
                   </div>
                   <div class="mb-3">
                     <label for="newProductCategory" class="form-label">Category</label>
-                    <select id="newProductCategory" name="category" required class="form-control" >
+                    <select id="newProductCategory" name="category" [(ngModel)]="newProduct.category" required class="form-control">
                       <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
                     </select>
                   </div>
+                  <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </form>
               </div>
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-dismiss="modal">Close</button>
-              </div>
             </div>
-      </div>
+          </div>
+        </div>
+        
 </div>

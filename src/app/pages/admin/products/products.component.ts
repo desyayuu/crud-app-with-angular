@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { ProductsService } from '../../../core/services/products.service';
 import { Products } from '../../../core/models/products.model';
 import { CommonModule } from '@angular/common';
-import { FormsModule} from '@angular/forms';
+import { FormsModule, NgForm} from '@angular/forms';
 import * as XLSX from 'xlsx';
 import { Category } from '../../../core/models/category.model';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -19,8 +21,19 @@ export class ProductsComponent {
   categories: Category[] = [];
   selectedProduct: Products | null = null;
   isLoading: boolean = true; 
+  newProduct: Products = {
+    id: 0, 
+    title: '', 
+    description: '', 
+    price:0, 
+    images: [], 
+    category: {
+      id: 0, name: '',
+      image: ''
+    } 
+  }
 
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService, private toast: ToastrService) {}
 
   ngOnInit(){
     this.getProducts();
@@ -48,11 +61,13 @@ export class ProductsComponent {
     if (this.selectedProduct) {
       this.productsService.updateProducts(this.selectedProduct).subscribe(
         (response) => {
-          console.log('Pengguna berhasil diperbarui', response);
+          console.log('Produk berhasil diperbarui', response);
           this.getProducts();
+          this.toast.success('Produk berhasil diperbarui');
         },
         (error) => {
-          console.error('Gagal memperbarui pengguna', error);
+          console.error('Gagal memperbarui produk', error);
+          this.toast.error('Gagal memperbarui produk');
         }
       );
     }
@@ -92,5 +107,33 @@ export class ProductsComponent {
     XLSX.writeFile(wb, 'Data Produk.xlsx')
   }
 
+  createProduct(form: NgForm): void {
+    if (form.valid) {
+      const formData = form.value;
+      const imagesArray = formData.images.split(',').map((image: string) => image.trim());
+
+      const product = {
+        title: formData.title,
+        price: formData.price,
+        description: formData.description,
+        images: imagesArray, 
+        category: formData.category
+      };
+
+      this.productsService.createProduct(product).subscribe({
+        next: (response) => {
+          console.log('Berhasil menambahkan Produk', response);
+          this.getProducts();
+          this.toast.success('Berhasil menambahkan Produk');
+        },
+        error: (error) => {
+          console.error('Error creating product:', error);
+          this.toast.error('Gagal menambahkan produk');
+        }
+      });
+    } else {
+      this.toast.error('Please fill in all required fields.');
+    }
+  }
 }
 
