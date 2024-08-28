@@ -17,8 +17,29 @@ export class ProductsService {
   }
 
   updateProducts(product: Products): Observable<Products> { 
+    let imagesArray: string = "";
+
+    if (typeof product.images === 'string') {
+      try {
+        imagesArray = JSON.parse(product.images);
+      } catch (error) {
+        imagesArray = product.images.split(',').map((image: string) => image.trim()).join(',');
+      }
+    } else if (Array.isArray(product.images)) {
+      imagesArray = product.images;
+    }
+
+    
+    const updateProductsForApi = {
+      title: product.title,
+      price: product.price,
+      description: product.description,
+      categoryId: product.category.id
+    };
+    console.log("For api: ", updateProductsForApi)
+
     const url = `${this.endpoint}/${product.id}`; 
-    return this.apiService.put<Products>(url, product);
+    return this.apiService.put<Products>(url, updateProductsForApi);
   }
 
   deleteProduct(id: number): Observable<void> {

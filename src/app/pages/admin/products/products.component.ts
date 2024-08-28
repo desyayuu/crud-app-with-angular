@@ -57,22 +57,6 @@ export class ProductsComponent {
     this.selectedProduct = product;
   }
 
-  saveChanges(): void {
-    if (this.selectedProduct) {
-      this.productsService.updateProducts(this.selectedProduct).subscribe(
-        (response) => {
-          console.log('Produk berhasil diperbarui', response);
-          this.getProducts();
-          this.toast.success('Produk berhasil diperbarui');
-        },
-        (error) => {
-          console.error('Gagal memperbarui produk', error);
-          this.toast.error('Gagal memperbarui produk');
-        }
-      );
-    }
-  }
-
   deleteProduct(id: number): void {
     if (confirm('Are you sure you want to delete this product?')) {
       this.productsService.deleteProduct(id).subscribe({
@@ -129,22 +113,42 @@ export class ProductsComponent {
     );
   }
 
-  onSubmit(form: NgForm): void {
-    if (form.valid) {
-      const formData = form.value;
-      const imagesArray = formData.images.split(',').map((image: string) => image.trim());
+  saveChanges(): void {
+    if (this.selectedProduct) {
+      this.productsService.updateProducts(this.selectedProduct).subscribe(
+        (response) => {
+          console.log('Produk berhasil diperbarui', response);
+          this.getProducts();
+          this.toast.success('Produk berhasil diperbarui');
+        },
+        (error) => {
+          console.error('Gagal memperbarui produk', error);
+          this.toast.error('Gagal memperbarui produk');
+        }
+      );
+    }
+  }
 
-      const newProduct: Products = {
-        id: 0,
-        title: formData.title,
-        price: formData.price,
-        description: formData.description,
-        images: imagesArray,
-        category: formData.category
-      };
-      this.createProduct(newProduct);
-    } else {
-      this.toast.error('Silahkan isi form terlebih dahulu');
+  onSubmit(form: NgForm): void {
+    if(this.selectedProduct){
+      this.saveChanges();
+    }else{
+      if (form.valid) {
+        const formData = form.value;
+        const imagesArray = formData.images.split(',').map((image: string) => image.trim());
+  
+        const newProduct: Products = {
+          id: 0,
+          title: formData.title,
+          price: formData.price,
+          description: formData.description,
+          images: imagesArray,
+          category: formData.category
+        };
+        this.createProduct(newProduct);
+      } else {
+        this.toast.error('Silahkan isi form terlebih dahulu');
+      }
     }
   }
 }
