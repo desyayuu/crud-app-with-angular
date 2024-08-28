@@ -74,7 +74,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form #form="ngForm" (ngSubmit)="createProduct(form)">
+                <form #form="ngForm">
                   <div class="mb-3">
                     <label for="newProductImage" class="form-label">Images</label>
                     <input type="text" id="newProductImage" name="images" [(ngModel)]="newProduct.images" required class="form-control">
@@ -97,7 +97,7 @@
                       <option *ngFor="let category of categories" [ngValue]="category">{{ category.name }}</option>
                     </select>
                   </div>
-                  <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                  <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" (click)="onSubmit(form)">Save</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </form>
               </div>

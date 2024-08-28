@@ -25,8 +25,8 @@ export class ProductsComponent {
     id: 0, 
     title: '', 
     description: '', 
-    price:0, 
-    images: [], 
+    price: 0, 
+    images: '', 
     category: {
       id: 0, name: '',
       image: ''
@@ -78,11 +78,11 @@ export class ProductsComponent {
       this.productsService.deleteProduct(id).subscribe({
         next: () => {
           this.products = this.products.filter(product => product.id !== id);
-          this.toast.success('Product deleted successfully!');
+          this.toast.success('Berhasil menghapus produk');
         },
         error: (err) => {
-          console.error('Error deleting product:', err);
-          this.toast.error('Failed to delete product.');
+          console.error('Error menghapus produk:', err);
+          this.toast.error('Gagal menghapus produk');
         }
       });
     }
@@ -115,32 +115,36 @@ export class ProductsComponent {
     XLSX.writeFile(wb, 'Data Produk.xlsx')
   }
 
-  createProduct(form: NgForm): void {
+  createProduct(product: Products):void {
+    this.productsService.createProduct(product).subscribe(
+      (createdProduct: Products) => {
+        console.log('Berhasil menambahkan produk', createdProduct);
+        this.getProducts();
+        this.toast.success('Berhasil menambahkan produk');
+      },
+      (error) => {
+        console.error('Error menambahkan produk:', error);
+        this.toast.error('Gagal menambahkan produk');
+      }
+    );
+  }
+
+  onSubmit(form: NgForm): void {
     if (form.valid) {
       const formData = form.value;
       const imagesArray = formData.images.split(',').map((image: string) => image.trim());
 
-      const product = {
+      const newProduct: Products = {
+        id: 0,
         title: formData.title,
         price: formData.price,
         description: formData.description,
-        images: imagesArray, 
+        images: imagesArray,
         category: formData.category
       };
-
-      this.productsService.createProduct(product).subscribe({
-        next: (response) => {
-          console.log('Berhasil menambahkan Produk', response);
-          this.getProducts();
-          this.toast.success('Berhasil menambahkan Produk');
-        },
-        error: (error) => {
-          console.error('Error creating product:', error);
-          this.toast.error('Gagal menambahkan produk');
-        }
-      });
+      this.createProduct(newProduct);
     } else {
-      this.toast.error('Please fill in all required fields.');
+      this.toast.error('Silahkan isi form terlebih dahulu');
     }
   }
 }

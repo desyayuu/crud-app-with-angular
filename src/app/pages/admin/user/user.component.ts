@@ -82,7 +82,11 @@ export class UserComponent {
     if (this.selectedUser) {
       this.saveChanges();
     } else {
-      this.createUser(this.newUser);
+      if(form.valid){
+        this.createUser(this.newUser);
+      }else{
+        this.toastr.error('Silahkan isi form terlebih dahulu');
+      }
     }
   }
 
