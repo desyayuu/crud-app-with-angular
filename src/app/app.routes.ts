@@ -12,6 +12,7 @@ import { ShoesComponent } from './pages/public/shoes/shoes.component';
 import { CycleComponent } from './pages/public/cycle/cycle.component';
 import { ElectronicsComponent } from './pages/public/electronics/electronics.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { CategoryComponent } from './pages/admin/category/category.component';
 
 export const routes: Routes = [
     {
@@ -47,6 +48,10 @@ export const routes: Routes = [
                   {
                     path: 'products', 
                     component: ProductsComponent
+                  }, 
+                  {
+                    path: 'categories',
+                    component: CategoryComponent
                   }
                 ]
             },
