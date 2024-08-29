@@ -48,6 +48,8 @@ export class CategoryComponent {
   onSubmited(form: NgForm): void {
     if (form.valid) {
       this.addCategory();
+    }else if(this.selectedCategory){
+      this.saveChanges();
     }
   }
 
@@ -62,6 +64,26 @@ export class CategoryComponent {
         (error) => {
           console.error('Gagal menghapus kategori', error);
           this.toast.error('Gagal menghapus kategori', error);
+        }
+      );
+    }
+  }
+
+  selectCategory(category: Category): void {
+    this.selectedCategory = category;
+  }
+
+  saveChanges(): void {
+    if (this.selectedCategory) {
+      this.categoryService.updateCategory(this.selectedCategory).subscribe(
+        (response) => {
+          console.log('Produk berhasil diperbarui', response);
+          this.getCategories();
+          this.toast.success('Produk berhasil diperbarui');
+        },
+        (error) => {
+          console.error('Gagal memperbarui produk', error);
+          this.toast.error('Gagal memperbarui produk');
         }
       );
     }

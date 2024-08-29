@@ -23,4 +23,9 @@ export class CategoryService {
     const url = `${this.endpoint}/${id}`; 
     return this.apiService.delete<void>(url);
   }
+
+  updateCategory(category: Category): Observable<Category> {
+    const url = `${this.endpoint}/${category.id}`;
+    return this.apiService.put<Category>(url, category);  
+  }
 }

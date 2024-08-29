@@ -19,7 +19,7 @@
               <td>{{ kategori.name}}</td>
               <td><img class="img-category" [src]=kategori.image alt=""></td>
               <td>
-                  <button type="button" class="button-edit"  data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
+                  <button type="button" class="button-edit"  data-bs-toggle="modal" data-bs-target="#updateCategoryModal"  (click)="selectCategory(kategori)">Edit</button>
                   <button class="button-delete" (click)="deleteCategory(kategori.id)">Delete</button>
               </td>
             </tr>
@@ -51,4 +51,31 @@
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="updateCategoryModal" tabindex="-1" aria-labelledby="updateCategoryLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="updateCategoryModalLabel">Edit Product</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form *ngIf="selectedCategory" #form="ngForm">
+                <div class="mb-3">
+                  <label for="title" class="form-label">Nama</label>
+                  <input type="text" class="form-control" id="title" [(ngModel)]="selectedCategory.name" name="name">
+                </div>
+                <div class="mb-3">
+                  <label for="categoryImage" class="form-label">Image</label>
+                  <input type="text" class="form-control" id="categoryImage" [(ngModel)]="selectedCategory.image" name="image">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="onSubmited(form)" data-bs-dismiss="modal">Save changes</button>
+            </div>
+          </div>
+        </div>
+    </div>
 </div>
