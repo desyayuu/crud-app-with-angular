@@ -18,4 +18,9 @@ export class CategoryService {
   createCategory(category: Category): Observable<Category> {
     return this.apiService.post<Category>(this.endpoint, category);
   }
+
+  deleteCategory(id: number): Observable<void> {
+    const url = `${this.endpoint}/${id}`; 
+    return this.apiService.delete<void>(url);
+  }
 }

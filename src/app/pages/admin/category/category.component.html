@@ -20,7 +20,7 @@
               <td><img class="img-category" [src]=kategori.image alt=""></td>
               <td>
                   <button type="button" class="button-edit"  data-bs-toggle="modal" data-bs-target="#editProductModal">Edit</button>
-                  <button class="button-delete" >Delete</button>
+                  <button class="button-delete" (click)="deleteCategory(kategori.id)">Delete</button>
               </td>
             </tr>
           </tbody>

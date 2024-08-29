@@ -3,6 +3,7 @@ import { Category } from '../../../core/models/category.model';
 import { CategoryService } from '../../../core/services/category.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm} from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category',
@@ -15,8 +16,9 @@ export class CategoryComponent {
   category: Category[] = [];
   isLoading: boolean = true;
   newCategory: Category = { id: 0, name: '', image: ''};
+  selectedCategory: Category | null = null;
 
-  constructor(private categoryService: CategoryService) {}
+  constructor(private categoryService: CategoryService, private toast: ToastrService) {}
   
   ngOnInit(): void {
     this.getCategories();
@@ -46,6 +48,22 @@ export class CategoryComponent {
   onSubmited(form: NgForm): void {
     if (form.valid) {
       this.addCategory();
+    }
+  }
+
+  deleteCategory(id: number): void{
+    if (confirm('Are you sure you want to delete this category?')) {
+      this.categoryService.deleteCategory(id).subscribe(
+        (response) => {
+          console.log('Kategori berhasil dihapus', response);
+          this.toast.success('Kategori berhasil dihapus');
+          this.getCategories();
+        },
+        (error) => {
+          console.error('Gagal menghapus kategori', error);
+          this.toast.error('Gagal menghapus kategori', error);
+        }
+      );
     }
   }
 }
