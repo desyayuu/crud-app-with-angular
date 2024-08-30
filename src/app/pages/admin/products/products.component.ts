@@ -39,8 +39,8 @@ export class ProductsComponent {
     title: '', 
   };
   currentOffset: number = 0; 
-  currentPageLimit: number = 5;
-  itemsPerPage: number = 5;
+  currentPageLimit: number = 10;
+  itemsPerPage: number = 10;
   searchTitle: string = '';
 
   constructor(private productsService: ProductsService, private toast: ToastrService) {}
@@ -204,14 +204,14 @@ export class ProductsComponent {
     }
   }
 
-  // nextPage(): void {
-  //   this.currentOffset += this.currentPageLimit;
-  //   this.getProducts();
-  // }
+  nextPage(): void {
+    this.currentOffset += this.currentPageLimit;
+    this.getProducts();
+  }
 
-  // prevPage(): void {
-  //   this.currentOffset -= this.currentPageLimit;
-  //   this.getProducts();
-  // }
+  prevPage(): void {
+    this.currentOffset -= this.currentPageLimit;
+    this.getProducts();
+  }
 }
 

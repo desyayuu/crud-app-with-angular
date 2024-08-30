@@ -100,3 +100,8 @@
     color: darkgrey;
     padding: 5px 10px 5px 10px;
 }
+.button-title:hover{
+    color: white;
+    background-color: darkgrey;
+    border: 1px solid white;
+}
