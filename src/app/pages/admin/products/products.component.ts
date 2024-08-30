@@ -62,8 +62,6 @@ export class ProductsComponent {
     );
   }
   
-
-
   selectProduct(product: Products): void {
     this.selectedProduct = product;
   }
@@ -113,6 +111,7 @@ export class ProductsComponent {
   createProduct(product: Products):void {
     this.productsService.createProduct(product).subscribe(
       (createdProduct: Products) => {
+        this.resetForm();
         console.log('Berhasil menambahkan produk', createdProduct);
         this.getProducts();
         this.toast.success('Berhasil menambahkan produk');
@@ -129,6 +128,7 @@ export class ProductsComponent {
       this.productsService.updateProducts(this.selectedProduct).subscribe(
         (response) => {
           console.log('Produk berhasil diperbarui', response);
+          this.resetForm();
           this.getProducts();
           this.toast.success('Produk berhasil diperbarui');
         },
@@ -174,6 +174,23 @@ export class ProductsComponent {
       this.products.sort((a, b) => new Date(a.creationAt).getTime() - new Date(b.creationAt).getTime());
     } else{
       this.products.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime());
+    }
+  }
+
+  resetForm(): void {
+    this.newProduct = {
+      id: 0,
+      title: '',
+      description: '',
+      price: 0,
+      images: '',
+      updatedAt: new Date(),
+      creationAt: new Date(),
+      category: {
+        id: 0,
+        name: '',
+        image: ''
+      }
     }
   }
 }
