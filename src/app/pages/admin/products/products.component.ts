@@ -37,6 +37,9 @@ export class ProductsComponent {
   queries: any = {
     sort: '-updatedAt',
   };
+  currentOffset: number = 0; 
+  currentPageLimit: number = 10;
+  itemsPerPage: number = 10;
 
   constructor(private productsService: ProductsService, private toast: ToastrService) {}
 
@@ -47,7 +50,7 @@ export class ProductsComponent {
 
   getProducts(): void {
     this.isLoading = true;
-    this.productsService.getProducts().subscribe(
+    this.productsService.getProducts({offset: this.currentOffset, limit: this.currentPageLimit}).subscribe(
       (data: Products[]) => {
         this.products = data;
         this.isLoading = false;
@@ -192,6 +195,16 @@ export class ProductsComponent {
         image: ''
       }
     }
+  }
+
+  nextPage(): void {
+    this.currentOffset += this.currentPageLimit;
+    this.getProducts();
+  }
+
+  prevPage(): void {
+    this.currentOffset -= this.currentPageLimit;
+    this.getProducts();
   }
 }
 
