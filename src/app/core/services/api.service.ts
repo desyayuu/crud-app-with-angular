@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -16,8 +16,14 @@ export class ApiService {
     return token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : undefined;
   }
 
-  get<T>(endpoint: string): Observable<T> {
-    return this.http.get<T>(`${this.apiUrl}${endpoint}`, { headers: this.getHeaders() }).pipe(
+  get<T>(endpoint: string, params?: any): Observable<T> {
+    let httpParams = new HttpParams(); 
+    if (params) {
+      Object.keys(params).forEach(key => {
+        httpParams = httpParams.set(key, params[key]);
+      });
+    }
+    return this.http.get<T>(`${this.apiUrl}${endpoint}`, { headers: this.getHeaders(), params: httpParams }).pipe(
       catchError(this.handleError<T>(`get ${endpoint}`))
     );
   }

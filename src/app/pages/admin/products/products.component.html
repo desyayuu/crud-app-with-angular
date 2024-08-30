@@ -2,6 +2,22 @@
     <div class="title-section">Data Product</div>
     <button class="button-create" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
     <button class="button-download" (click)="exportToExcel()">Export to Excel</button>
+    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Sort
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" (click)="sortProduct('Terbaru')">Terbaru</a></li>
+      <li><a class="dropdown-item" (click)="sortProduct('Terlama')">Terlama</a></li>
+    </ul>
+    <!-- src/app/pages/admin/products/products.component.html -->
+    <!-- <div>
+      <label for="sort">Sort by:</label>
+      <select id="sort" (change)="sortProduct($event)">
+        <option value="Terbaru">Newest</option>
+        <option value="Terlama">Oldest</option>
+      </select>
+    </div> -->
+
     <div *ngIf="isLoading" class="loading">
       Loading...
     </div>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductsService } from '../../../core/services/products.service';
-import { Products } from '../../../core/models/products.model';
+import { Products} from '../../../core/models/products.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm} from '@angular/forms';
 import * as XLSX from 'xlsx';
@@ -27,11 +27,16 @@ export class ProductsComponent {
     description: '', 
     price: 0, 
     images: '', 
+    updatedAt: new Date(),
+    creationAt: new Date(),
     category: {
       id: 0, name: '',
       image: ''
     } 
-  }
+  };
+  queries: any = {
+    sort: '-updatedAt',
+  };
 
   constructor(private productsService: ProductsService, private toast: ToastrService) {}
 
@@ -41,17 +46,23 @@ export class ProductsComponent {
   }
 
   getProducts(): void {
+    this.isLoading = true;
     this.productsService.getProducts().subscribe(
       (data: Products[]) => {
         this.products = data;
         this.isLoading = false;
+        console.log(this.products);
         console.log('Berhasil get data', data);
+        this.sortProduct(this.queries.sort === '-creationAt' ? 'Terlama' : 'Terbaru');
       },
       (error) => {
         console.error('Gagal mengambil data user', error);
+        this.isLoading = false;
       }
-    )
+    );
   }
+  
+
 
   selectProduct(product: Products): void {
     this.selectedProduct = product;
@@ -143,12 +154,26 @@ export class ProductsComponent {
           price: formData.price,
           description: formData.description,
           images: imagesArray,
+          updatedAt: new Date(),
+          creationAt: new Date(),
           category: formData.category
         };
         this.createProduct(newProduct);
       } else {
         this.toast.error('Silahkan isi form terlebih dahulu');
       }
+    }
+  }
+
+  sortProduct(sort: string): void {
+    console.log('Sort By:', sort);
+    
+    if (sort === 'Terbaru') {
+      this.products.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime());
+    } else if (sort === 'Terlama') {
+      this.products.sort((a, b) => new Date(a.creationAt).getTime() - new Date(b.creationAt).getTime());
+    } else{
+      this.products.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime());
     }
   }
 }

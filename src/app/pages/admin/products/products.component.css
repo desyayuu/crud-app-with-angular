@@ -68,3 +68,18 @@
 .img-product{
     width: 25%;
 }
+
+.dropdown-toggle{
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+    color: grey;
+    padding: 5px 10px 5px 10px;
+    margin-left: 20px;
+}
+
+.dropdown-toggle:hover{
+    color: white;
+    background-color: grey;
+    border: 1px solid white;
+}

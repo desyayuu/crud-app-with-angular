@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { Products } from '../models/products.model';
+import { Products} from '../models/products.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs';
 import { Category } from '../models/category.model';
@@ -12,8 +12,8 @@ export class ProductsService {
   private endpoint= 'products'; 
   constructor(private apiService: ApiService) { }
 
-  getProducts(): Observable<Products[]>{
-    return this.apiService.get<Products[]>(this.endpoint);
+  getProducts(params?: any): Observable<Products[]>{
+    return this.apiService.get<Products[]>(this.endpoint, params);
   }
 
   updateProducts(product: Products): Observable<Products> { 
