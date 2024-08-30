@@ -9,15 +9,9 @@
       <li><a class="dropdown-item" (click)="sortProduct('Terbaru')">Terbaru</a></li>
       <li><a class="dropdown-item" (click)="sortProduct('Terlama')">Terlama</a></li>
     </ul>
-    <!-- src/app/pages/admin/products/products.component.html -->
-    <!-- <div>
-      <label for="sort">Sort by:</label>
-      <select id="sort" (change)="sortProduct($event)">
-        <option value="Terbaru">Newest</option>
-        <option value="Terlama">Oldest</option>
-      </select>
-    </div> -->
-
+    <input class="input-title" [(ngModel)]="searchTitle" placeholder="Search by title"/>
+    <button class="button-title" (click)="getProducts()">Search</button>
+    
     <div *ngIf="isLoading" class="loading">
       Loading...
     </div>
@@ -44,7 +38,7 @@
           </tr>
         </tbody>
     </table>
-    <nav aria-label="Page navigation example">
+    <!-- <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" [class.disabled]="currentOffset === 0">
           <button class="page-link" (click)="prevPage()">Previous</button>
@@ -56,7 +50,7 @@
           <button class="page-link" (click)="nextPage()">Next</button>
         </li>
       </ul>
-    </nav>
+    </nav> -->
 
     
 

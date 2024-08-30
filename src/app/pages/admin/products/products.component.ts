@@ -36,10 +36,12 @@ export class ProductsComponent {
   };
   queries: any = {
     sort: '-updatedAt',
+    title: '', 
   };
   currentOffset: number = 0; 
-  currentPageLimit: number = 10;
-  itemsPerPage: number = 10;
+  currentPageLimit: number = 5;
+  itemsPerPage: number = 5;
+  searchTitle: string = '';
 
   constructor(private productsService: ProductsService, private toast: ToastrService) {}
 
@@ -50,12 +52,17 @@ export class ProductsComponent {
 
   getProducts(): void {
     this.isLoading = true;
-    this.productsService.getProducts({offset: this.currentOffset, limit: this.currentPageLimit}).subscribe(
+    this.productsService.getProducts(
+      { offset: this.currentOffset, 
+        limit: this.currentPageLimit, 
+        title: this.searchTitle, 
+      }).subscribe(
       (data: Products[]) => {
         this.products = data;
         this.isLoading = false;
         console.log(this.products);
         console.log('Berhasil get data', data);
+        this.searchTitle = this.queries.title;
         this.sortProduct(this.queries.sort === '-creationAt' ? 'Terlama' : 'Terbaru');
       },
       (error) => {
@@ -197,14 +204,14 @@ export class ProductsComponent {
     }
   }
 
-  nextPage(): void {
-    this.currentOffset += this.currentPageLimit;
-    this.getProducts();
-  }
+  // nextPage(): void {
+  //   this.currentOffset += this.currentPageLimit;
+  //   this.getProducts();
+  // }
 
-  prevPage(): void {
-    this.currentOffset -= this.currentPageLimit;
-    this.getProducts();
-  }
+  // prevPage(): void {
+  //   this.currentOffset -= this.currentPageLimit;
+  //   this.getProducts();
+  // }
 }
 

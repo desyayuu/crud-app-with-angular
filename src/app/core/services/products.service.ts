@@ -12,11 +12,7 @@ export class ProductsService {
   private endpoint= 'products'; 
   constructor(private apiService: ApiService) { }
 
-  // getProducts(params?: any): Observable<Products[]>{
-  //   return this.apiService.get<Products[]>(this.endpoint, params);
-  // }
-
-  getProducts(params?: { offset?: number, limit?: number }): Observable<Products[]> {
+  getProducts(params?: { offset?: number, limit?: number, title?: string }): Observable<Products[]> {
     return this.apiService.get<Products[]>(this.endpoint, params);
   }
 
