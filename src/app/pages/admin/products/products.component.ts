@@ -41,6 +41,7 @@ export class ProductsComponent {
   currentOffset: number = 0; 
   currentPageLimit: number = 10;
   itemsPerPage: number = 10;
+  totalItems: number = 0;
   searchTitle: string = '';
 
   constructor(private productsService: ProductsService, private toast: ToastrService) {}
@@ -63,7 +64,7 @@ export class ProductsComponent {
         console.log(this.products);
         console.log('Berhasil get data', data);
         this.searchTitle = this.queries.title;
-        this.sortProduct(this.queries.sort === '-creationAt' ? 'Terlama' : 'Terbaru');
+        this.totalItems = this.products.length;
       },
       (error) => {
         console.error('Gagal mengambil data user', error);
@@ -175,17 +176,6 @@ export class ProductsComponent {
     }
   }
 
-  sortProduct(sort: string): void {
-    console.log('Sort By:', sort);
-    
-    if (sort === 'Terbaru') {
-      this.products.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime());
-    } else if (sort === 'Terlama') {
-      this.products.sort((a, b) => new Date(a.creationAt).getTime() - new Date(b.creationAt).getTime());
-    } else{
-      this.products.sort((a, b) => new Date(b.creationAt).getTime() - new Date(a.creationAt).getTime());
-    }
-  }
 
   resetForm(): void {
     this.newProduct = {
@@ -213,5 +203,12 @@ export class ProductsComponent {
     this.currentOffset -= this.currentPageLimit;
     this.getProducts();
   }
+
+  goToPage(page: number): void {
+    this.currentOffset = (page - 1) * this.currentPageLimit;
+    this.getProducts();
+  }
+
+  
 }
 

@@ -2,13 +2,6 @@
     <div class="title-section">Data Product</div>
     <button class="button-create" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
     <button class="button-download" (click)="exportToExcel()">Export to Excel</button>
-    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Sort
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" (click)="sortProduct('Terbaru')">Terbaru</a></li>
-      <li><a class="dropdown-item" (click)="sortProduct('Terlama')">Terlama</a></li>
-    </ul>
     <input class="input-title" [(ngModel)]="searchTitle" placeholder="Search by title"/>
     <button class="button-title" (click)="getProducts()">Search</button>
     
@@ -45,6 +38,12 @@
         </li>
         <li class="page-item">
           <span class="page-link">{{ (currentOffset / itemsPerPage) + 1 }}</span>
+        </li>
+        <li class="page-item">
+          <span class="page-link">{{ (currentOffset / itemsPerPage) + 2 }}</span>
+        </li>
+        <li class="page-item">
+          <span class="page-link">{{ (currentOffset / itemsPerPage) + 3 }}</span>
         </li>
         <li class="page-item" [class.disabled]="products.length < itemsPerPage">
           <button class="page-link" (click)="nextPage()">Next</button>
