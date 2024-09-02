@@ -1,13 +1,28 @@
 <div class="container">
-    <div class="title-section">
-      Cloth
+  <div class="title-section">
+    Clothes
+  </div>
+
+  <div class="filter-section">
+    <label for="price-min">Min Price</label>
+    <input type="number" id="price-min" [(ngModel)]="priceMin" class="input">
+    
+    <label for="price-max" class="price-max">Max Price</label>
+    <input type="number" id="price-max" [(ngModel)]="priceMax" class="input">
+    
+    <button (click)="onFilterByPrice()" class="filter-button">Filter</button>
+  </div>
+
+  <div *ngIf="loading" class="loading-message">
+    Loading products...
+  </div>
+  
+  <div *ngIf="!loading">
+    <div *ngIf="products.length === 0" class="no-products-message">
+      Tidak ada produk yang sesuai dengan range harga yang dipilih
     </div>
 
-    <div *ngIf="loading" class="loading-message">
-      Loading products...
-    </div>
-  
-    <div *ngIf="!loading" class="card-container">
+    <div *ngIf="products.length > 0" class="card-container">
       <div class="card-section" *ngFor="let product of products">
         <div class="image-container">
           <img *ngIf="product.images && product.images.length > 0" [src]="product.images[0]" alt="{{ product.title }}" />
@@ -20,4 +35,4 @@
       </div>
     </div>
   </div>
-  
+</div>

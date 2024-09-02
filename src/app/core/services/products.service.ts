@@ -12,10 +12,9 @@ export class ProductsService {
   private endpoint= 'products'; 
   constructor(private apiService: ApiService) { }
 
-  getProducts(params?: { offset?: number, limit?: number, title?: string }): Observable<Products[]> {
+  getProducts(params?: { offset?: number, limit?: number, title?: string, price_min?: number, price_max?: number }): Observable<Products[]> {
     return this.apiService.get<Products[]>(this.endpoint, params);
   }
-
 
   updateProducts(product: Products): Observable<Products> { 
     let imagesArray: string = "";
@@ -48,8 +47,9 @@ export class ProductsService {
     return this.apiService.delete<void>(url);
   }
 
-  getProductsByCategory(category: string): Observable<Products[]> {
-    return this.getProducts().pipe(
+  getProductsByCategory(category: string, price_min?: number, price_max?: number): Observable<Products[]> {
+    const params = { price_min, price_max };
+    return this.getProducts(params).pipe(
       map(products => products.filter(product => product.category.name.toLowerCase() === category.toLowerCase()))
     );
   }
