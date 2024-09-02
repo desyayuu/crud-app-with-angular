@@ -2,13 +2,13 @@
     <div class="title-section">Data Product</div>
     <button class="button-create" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
     <button class="button-download" (click)="exportToExcel()">Export to Excel</button>
-    <input class="input-title" [(ngModel)]="searchTitle" placeholder="Search by title"/>
-    <button class="button-title" (click)="getProducts()">Search</button>
+    <input class="input-title" [(ngModel)]="searchTitle" (keyup)="onSearchTitleChange()" placeholder="Search by title"/>
     
     <div *ngIf="isLoading" class="loading">
       Loading...
     </div>
-    <table *ngIf="!isLoading" class="table">
+    <div *ngIf="products.length >0; else noResults">
+      <table *ngIf="!isLoading" class="table">
         <thead>
           <tr>
             <th scope="col">Id</th>
@@ -31,6 +31,12 @@
           </tr>
         </tbody>
     </table>
+    </div>
+
+    <ng-template #noResults>
+      <p>Produk dengan nama "{{ searchTitle }}" tidak ditemukan.</p>
+    </ng-template>
+
     <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" [class.disabled]="currentOffset === 0">

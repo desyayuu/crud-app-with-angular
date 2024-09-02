@@ -6,8 +6,8 @@ import { FormsModule, NgForm} from '@angular/forms';
 import * as XLSX from 'xlsx';
 import { Category } from '../../../core/models/category.model';
 import { ToastrService } from 'ngx-toastr';
-
-
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -35,7 +35,6 @@ export class ProductsComponent {
     } 
   };
   queries: any = {
-    sort: '-updatedAt',
     title: '', 
   };
   currentOffset: number = 0; 
@@ -43,27 +42,36 @@ export class ProductsComponent {
   itemsPerPage: number = 10;
   totalItems: number = 0;
   searchTitle: string = '';
+  private searchSubject = new Subject<string>();
 
-  constructor(private productsService: ProductsService, private toast: ToastrService) {}
+  constructor(private productsService: ProductsService, private toast: ToastrService) {
+    this.searchSubject.pipe(
+      debounceTime(300)
+    ).subscribe((searchText) => {
+      this.getProducts();
+    });
+  }
 
   ngOnInit(){
     this.getProducts();
     this.getCategories();
   }
 
+  onSearchTitleChange(): void {
+    this.searchSubject.next(this.searchTitle);
+  }
+
   getProducts(): void {
     this.isLoading = true;
     this.productsService.getProducts(
-      { offset: this.currentOffset, 
+      {
+        offset: this.currentOffset, 
         limit: this.currentPageLimit, 
         title: this.searchTitle, 
       }).subscribe(
       (data: Products[]) => {
         this.products = data;
         this.isLoading = false;
-        console.log(this.products);
-        console.log('Berhasil get data', data);
-        this.searchTitle = this.queries.title;
         this.totalItems = this.products.length;
       },
       (error) => {
@@ -96,7 +104,6 @@ export class ProductsComponent {
     this.productsService.getCategories().subscribe(
       (data: Category[]) => {
         this.categories = data;
-        console.log('Berhasil mendapatkan kategori', data);
       },
       (error) => {
         console.error('Gagal mengambil kategori', error);
@@ -123,7 +130,6 @@ export class ProductsComponent {
     this.productsService.createProduct(product).subscribe(
       (createdProduct: Products) => {
         this.resetForm();
-        console.log('Berhasil menambahkan produk', createdProduct);
         this.getProducts();
         this.toast.success('Berhasil menambahkan produk');
       },
@@ -136,9 +142,7 @@ export class ProductsComponent {
 
   saveChanges(): void {
     if (this.selectedProduct) {
-      this.productsService.updateProducts(this.selectedProduct).subscribe(
-        (response) => {
-          console.log('Produk berhasil diperbarui', response);
+      this.productsService.updateProducts(this.selectedProduct).subscribe(() => {
           this.resetForm();
           this.getProducts();
           this.toast.success('Produk berhasil diperbarui');
@@ -209,6 +213,5 @@ export class ProductsComponent {
     this.getProducts();
   }
 
-  
 }
 
