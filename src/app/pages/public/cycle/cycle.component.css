@@ -61,3 +61,32 @@
     margin-top: 20px;
     color: #888;
 }
+
+.filter-section{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.price-max{
+    margin-left: 10px;
+}
+
+.input{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin-left: 3px;
+}
+
+.filter-button{
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #DB4444;
+    background-color: #DB4444;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    margin-left: 3px;
+}
