@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 
@@ -22,25 +22,28 @@ export class AuthenticationService {
   login(email: string, password: string): Observable<boolean> {
     const dataLogin = { email, password };
     return this.apiService.post<{ access_token: string }>(this.loginUrl, dataLogin).pipe(
-      tap(response => {
+      switchMap(response => {
         if (response.access_token) {
-          localStorage.setItem('token', response.access_token); 
-          this.getProfile().subscribe(profile => {
-            if (profile) {
-              this.currentUser = { email: profile.email, role: profile.role };
-              localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-            }
-          });
+          localStorage.setItem('access_token', response.access_token); 
+          return this.getProfile().pipe(
+            tap(profile => {
+              if (profile) {
+                this.currentUser = { email: profile.email, role: profile.role };
+                localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+              }
+            }),
+            map(profile => !!profile)
+          );
+        } else {
+          return of(false);
         }
       }),
-      map(response => !!response.access_token),
       catchError(error => {
         console.error('Login error', error);
         return of(false);
       })
     );
   }
-  
 
   getProfile(): Observable<User | null> {
     return this.apiService.get<User>('auth/profile').pipe(
@@ -50,7 +53,7 @@ export class AuthenticationService {
       })
     );
   }
-  
+
   refreshToken(): Observable<boolean> {
     const refreshToken = localStorage.getItem('refresh_token');
     
@@ -59,15 +62,13 @@ export class AuthenticationService {
     }
   
     return this.apiService.post<{ access_token: string, refresh_token: string }>('auth/refresh-token', { refreshToken }).pipe(
-      map(response => {
-        if (response.access_token) {
+      tap(response => {
+        if (response.access_token && response.refresh_token) {
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('refresh_token', response.refresh_token);
-          return true;
-        } else {
-          return false;
         }
       }),
+      map(response => !!(response.access_token && response.refresh_token)),
       catchError(error => {
         console.error('Error refreshing token', error);
         return of(false);
@@ -78,7 +79,7 @@ export class AuthenticationService {
   logout(): void {
     this.currentUser = null;
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('token');
+    localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     this.router.navigate(['/login']);
   }

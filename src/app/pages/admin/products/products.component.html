@@ -45,12 +45,12 @@
         <li class="page-item">
           <span class="page-link">{{ (currentOffset / itemsPerPage) + 1 }}</span>
         </li>
-        <li class="page-item">
+        <!-- <li class="page-item">
           <span class="page-link">{{ (currentOffset / itemsPerPage) + 2 }}</span>
         </li>
         <li class="page-item">
           <span class="page-link">{{ (currentOffset / itemsPerPage) + 3 }}</span>
-        </li>
+        </li> -->
         <li class="page-item" [class.disabled]="products.length < itemsPerPage">
           <button class="page-link" (click)="nextPage()">Next</button>
         </li>

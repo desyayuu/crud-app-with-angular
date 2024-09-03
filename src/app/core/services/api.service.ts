@@ -12,8 +12,8 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   private getHeaders() {
-    const token = localStorage.getItem('token');
-    return token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : undefined;
+    const token = localStorage.getItem('access_token');
+    return token ? new HttpHeaders({ 'Authorization': `Bearer ${token}` }) : new HttpHeaders();
   }
 
   get<T>(endpoint: string, params?: any): Observable<T> {
