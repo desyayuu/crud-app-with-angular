@@ -37,7 +37,7 @@
       <p>Produk dengan nama "{{ searchTitle }}" tidak ditemukan.</p>
     </ng-template>
 
-    <nav aria-label="Page navigation example">
+    <!-- <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" [class.disabled]="currentOffset === 0">
           <button class="page-link" (click)="prevPage()">Previous</button>
@@ -45,17 +45,11 @@
         <li class="page-item">
           <span class="page-link">{{ (currentOffset / itemsPerPage) + 1 }}</span>
         </li>
-        <!-- <li class="page-item">
-          <span class="page-link">{{ (currentOffset / itemsPerPage) + 2 }}</span>
-        </li>
-        <li class="page-item">
-          <span class="page-link">{{ (currentOffset / itemsPerPage) + 3 }}</span>
-        </li> -->
         <li class="page-item" [class.disabled]="products.length < itemsPerPage">
           <button class="page-link" (click)="nextPage()">Next</button>
         </li>
       </ul>
-    </nav>
+    </nav> -->
 
         <!-- Modal -->
         <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">

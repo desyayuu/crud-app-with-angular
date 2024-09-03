@@ -37,10 +37,10 @@ export class ProductsComponent {
   queries: any = {
     title: '', 
   };
-  currentOffset: number = 0; 
-  currentPageLimit: number = 10;
-  itemsPerPage: number = 10;
-  totalItems: number = 0;
+  // currentOffset: number = 0; 
+  // currentPageLimit: number = 10;
+  // itemsPerPage: number = 10;
+  // totalItems: number = 0;
   searchTitle: string = '';
   private searchSubject = new Subject<string>();
 
@@ -65,14 +65,19 @@ export class ProductsComponent {
     this.isLoading = true;
     this.productsService.getProducts(
       {
-        offset: this.currentOffset, 
-        limit: this.currentPageLimit, 
+        // offset: this.currentOffset, 
+        // limit: this.currentPageLimit, 
         title: this.searchTitle, 
       }).subscribe(
       (data: Products[]) => {
-        this.products = data;
+        this.products = data
+          .map(product => ({
+            ...product,
+            creationAt: new Date(product.creationAt)
+          }))
+          .sort((a, b) => b.creationAt.getTime() - a.creationAt.getTime());
         this.isLoading = false;
-        this.totalItems = this.products.length;
+        // this.totalItems = this.products.length;
       },
       (error) => {
         console.error('Gagal mengambil data user', error);
@@ -198,20 +203,20 @@ export class ProductsComponent {
     }
   }
 
-  nextPage(): void {
-    this.currentOffset += this.currentPageLimit;
-    this.getProducts();
-  }
+  // nextPage(): void {
+  //   this.currentOffset += this.currentPageLimit;
+  //   this.getProducts();
+  // }
 
-  prevPage(): void {
-    this.currentOffset -= this.currentPageLimit;
-    this.getProducts();
-  }
+  // prevPage(): void {
+  //   this.currentOffset -= this.currentPageLimit;
+  //   this.getProducts();
+  // }
 
-  goToPage(page: number): void {
-    this.currentOffset = (page - 1) * this.currentPageLimit;
-    this.getProducts();
-  }
+  // goToPage(page: number): void {
+  //   this.currentOffset = (page - 1) * this.currentPageLimit;
+  //   this.getProducts();
+  // }
 
 }
 
